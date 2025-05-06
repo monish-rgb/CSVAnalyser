@@ -26,8 +26,8 @@
 
 name: Build and deploy a container to an Azure Web App
 
-env:
-  AZURE_WEBAPP_NAME: demowebappdocker  # set this to the name of your Azure Web App
+# env:
+#   AZURE_WEBAPP_NAME: demowebappdocker  # set this to the name of your Azure Web App
 
 on:
   push:
@@ -42,8 +42,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: 
-      OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
+    # env: 
+    #   OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
 
     steps:
       - uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
 
       - name: Build and push container image to registry
         run: |
-          docker build -t cdemo12.azurecr.io/csvanalyser:${{github.sha}} .
+          docker build -t cdemo12.azurecr.io/csvanalyser:${{github.sha}} --build-arg OPENAI_API_KEY="${{secrets.OPENAI_API_KEY}}" .
           docker push cdemo12.azurecr.io/csvanalyser:${{github.sha}}
 
   deploy:
