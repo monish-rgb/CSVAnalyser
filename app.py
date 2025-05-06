@@ -5,9 +5,9 @@ import streamlit as st
 from utils import query_agent
 
 load_dotenv()
-os.getenv("OPENAI_API_KEY")
+api_key=os.getenv("OPENAI_API_KEY")
 
-llm=ChatOpenAI(model="gpt-4o-mini")
+llm=ChatOpenAI(model="gpt-4o-mini",api_key=api_key)
 
 
 st.set_page_config(page_title="Data Analysis Tool", page_icon="☯")
